@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 
 client = roslibpy.Ros(host="192.168.50.169", port=9090)
 
-def receive_image(message):
+def receive_scan(message):
     try:
         header = message.get('header', {})
         seq = header.get('seq', 'unknown')
@@ -22,7 +22,7 @@ def receive_image(message):
         import traceback
         traceback.print_exc()
 
-subscriber = roslibpy.Topic(client, "/camera/depth/image_rect_raw/compressedDepth", "sensor_msgs/CompressedImage")
-subscriber.subscribe(receive_image)
+subscriber = roslibpy.Topic(client, "/laser/scan", "sensor_msgs/LaserScan")
+subscriber.subscribe(receive_scan)
 
 client.run_forever()

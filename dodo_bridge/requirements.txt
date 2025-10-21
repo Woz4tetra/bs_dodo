@@ -1,3 +1,6 @@
 autobahn
 --no-binary=autobahn
 roslibpy
+opencv-python
+numpy
+matplotlib
