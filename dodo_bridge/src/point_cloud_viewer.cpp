@@ -232,55 +232,13 @@ std::vector<Point3D> generate_point_cloud(
 
 cv::Mat decompress_depth_image(const std::string &compressed_data)
 {
-    // Decode base64
-    std::string binary_data;
-    const std::string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-    int val = 0, valb = -8;
-    for (unsigned char c : compressed_data)
-    {
-        if (chars.find(c) == std::string::npos)
-            break;
-        val = (val << 6) + chars.find(c);
-        valb += 6;
-        if (valb >= 0)
-        {
-            binary_data.push_back(char((val >> valb) & 0xFF));
-            valb -= 8;
-        }
-    }
-
-    if (binary_data.size() < 12) {
-        std::cerr << "Invalid compressed depth data: too small" << std::endl;
-        return cv::Mat();
-    }
-
-    // Parse the compressed depth header (first 12 bytes)
-    // Based on ROS sensor_msgs/CompressedImage for depth
-    // Format: [depth_max(4 bytes)][depth_quantization(4 bytes)][original_format(4 bytes)]
-    const uint8_t* data = reinterpret_cast<const uint8_t*>(binary_data.data());
+    // This function is now deprecated - kept for compatibility
+    // The main processing now handles native ROS CompressedImage messages directly
+    std::cerr << "Warning: decompress_depth_image() called with string data - this is deprecated" << std::endl;
     
-    // Skip the header for now and try to decompress the PNG data
-    // The actual PNG data starts after the header
-    size_t png_start = 0;
+    // Try to decode directly as image data
+    std::vector<uchar> img_data(compressed_data.begin(), compressed_data.end());
+    cv::Mat depth_image = cv::imdecode(img_data, cv::IMREAD_ANYDEPTH);
     
-    // Look for PNG signature (89 50 4E 47 0D 0A 1A 0A)
-    for (size_t i = 0; i < binary_data.size() - 8; i++) {
-        if (data[i] == 0x89 && data[i+1] == 0x50 && data[i+2] == 0x4E && data[i+3] == 0x47 &&
-            data[i+4] == 0x0D && data[i+5] == 0x0A && data[i+6] == 0x1A && data[i+7] == 0x0A) {
-            png_start = i;
-            break;
-        }
-    }
-    
-    if (png_start == 0 && !(data[0] == 0x89 && data[1] == 0x50)) {
-        // No PNG header found, try treating the whole data as PNG
-        std::cerr << "No PNG signature found in compressed depth data" << std::endl;
-        // Try anyway
-    }
-
-    // Extract PNG data
-    std::vector<uchar> png_data(binary_data.begin() + png_start, binary_data.end());
-    cv::Mat depth_image = cv::imdecode(png_data, cv::IMREAD_ANYDEPTH);
-
     return depth_image;
 }

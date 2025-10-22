@@ -26,6 +26,10 @@ add_executable(twist_publisher
     src/twist_publisher.cpp
 )
 
+add_executable(lidar_visualizer
+    src/lidar_visualizer.cpp
+)
+
 # Link libraries
 target_link_libraries(image_delay_subscriber
     miniros::roscxx
@@ -38,6 +42,12 @@ target_link_libraries(twist_publisher
     Threads::Threads
 )
 
+target_link_libraries(lidar_visualizer
+    miniros::roscxx
+    ${OpenCV_LIBS}
+    Threads::Threads
+)
+
 # Compiler flags
 target_compile_options(image_delay_subscriber PRIVATE
     -Wall
@@ -46,6 +56,6 @@ target_compile_options(image_delay_subscriber PRIVATE
 )
 
 # Install targets
-install(TARGETS image_delay_subscriber twist_publisher
+install(TARGETS image_delay_subscriber twist_publisher lidar_visualizer
     RUNTIME DESTINATION bin
 )
