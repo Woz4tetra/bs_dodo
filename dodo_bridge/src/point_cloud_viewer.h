@@ -70,11 +70,15 @@ struct Transform
     }
 };
 
+// Helper function for quaternion rotation
+void apply_quaternion_rotation(float& x, float& y, float& z, const double q[4]);
+
 // Point cloud generation utilities
 std::vector<Point3D> generate_point_cloud(
     const cv::Mat &color_image,
     const cv::Mat &depth_image,
-    const CameraIntrinsics &intrinsics,
+    const CameraIntrinsics &color_intrinsics,
+    const CameraIntrinsics &depth_intrinsics,
     const Transform &depth_to_color_transform,
     float depth_scale = 0.001f // Convert depth units to meters
 );
