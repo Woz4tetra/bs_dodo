@@ -339,8 +339,8 @@ int main(int argc, char** argv)
     miniros::NodeHandle nh;
 
     // Create subscribers using miniros
-    miniros::Subscriber color_sub = nh.subscribe("/camera/color/image_raw/compressed", 1, receive_color_image);
-    miniros::Subscriber depth_sub = nh.subscribe("/camera/depth/image_rect_raw/compressedDepth", 1, receive_depth_image);
+    miniros::Subscriber color_sub = nh.subscribe("/camera/color/image_raw_throttled/compressed", 1, receive_color_image);
+    miniros::Subscriber depth_sub = nh.subscribe("/camera/depth/image_rect_raw_throttled/compressedDepth", 1, receive_depth_image);
     miniros::Subscriber camera_info_sub = nh.subscribe("/camera/color/camera_info", 1, receive_camera_info);
     miniros::Subscriber tf_sub = nh.subscribe("/tf", 1, receive_tf);
 
@@ -358,7 +358,7 @@ int main(int argc, char** argv)
 
     // Main loop
     auto last_update = std::chrono::steady_clock::now();
-    miniros::Rate rate(60); // 60 Hz
+    miniros::Rate rate(240); // Hz
     
     while (running && miniros::ok() && !global_data.viewer->should_close())
     {

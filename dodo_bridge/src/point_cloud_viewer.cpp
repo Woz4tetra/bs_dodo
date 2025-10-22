@@ -99,15 +99,52 @@ cv::Mat PointCloudViewer::project_points_to_2d(const std::vector<Point3D>& point
     if (points.empty())
         return image;
     
-    // Find point cloud bounds
-    float min_x = points[0].x, max_x = points[0].x;
-    float min_y = points[0].y, max_y = points[0].y;
-    float min_z = points[0].z, max_z = points[0].z;
-    
+    // Calculate mean position
+    float mean_x = 0.0f, mean_y = 0.0f, mean_z = 0.0f;
     for (const auto& p : points) {
-        min_x = std::min(min_x, p.x); max_x = std::max(max_x, p.x);
-        min_y = std::min(min_y, p.y); max_y = std::max(max_y, p.y);
-        min_z = std::min(min_z, p.z); max_z = std::max(max_z, p.z);
+        mean_x += p.x;
+        mean_y += p.y;
+        mean_z += p.z;
+    }
+    mean_x /= points.size();
+    mean_y /= points.size();
+    mean_z /= points.size();
+    
+    // Calculate standard deviation
+    float var_x = 0.0f, var_y = 0.0f, var_z = 0.0f;
+    for (const auto& p : points) {
+        float dx = p.x - mean_x;
+        float dy = p.y - mean_y;
+        float dz = p.z - mean_z;
+        var_x += dx * dx;
+        var_y += dy * dy;
+        var_z += dz * dz;
+    }
+    var_x /= points.size();
+    var_y /= points.size();
+    var_z /= points.size();
+    
+    float std_x = sqrt(var_x);
+    float std_y = sqrt(var_y);
+    float std_z = sqrt(var_z);
+    
+    // Set bounds using mean ± 2.5 * std_dev for stable visualization
+    const float std_multiplier = 2.5f;
+    float min_x = mean_x - std_multiplier * std_x;
+    float max_x = mean_x + std_multiplier * std_x;
+    float min_y = mean_y - std_multiplier * std_y;
+    float max_y = mean_y + std_multiplier * std_y;
+    float min_z = mean_z - std_multiplier * std_z;
+    float max_z = mean_z + std_multiplier * std_z;
+    
+    // Ensure we have some minimum range to avoid division by zero
+    if (max_x - min_x < 1e-6f) {
+        min_x -= 0.1f;
+        max_x += 0.1f;
+    }
+    if (max_y - min_y < 1e-6f) {
+        min_y -= 0.1f;
+        max_y += 0.1f;
     }
     
     // Apply camera rotation
