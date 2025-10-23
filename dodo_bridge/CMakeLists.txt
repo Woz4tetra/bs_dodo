@@ -1,18 +1,28 @@
-cmake_minimum_required(VERSION 3.10)
-project(image_delay_subscriber)
+cmake_minimum_required(VERSION 3.14)
+project(dodo_bridge)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Adding miniros to the project
-add_subdirectory(thirdparty/miniroscpp)
+# Fetch miniroscpp from git
+include(FetchContent)
+FetchContent_Declare(
+    miniroscpp
+    GIT_REPOSITORY https://github.com/dkargin/miniroscpp.git
+    GIT_TAG master
+    GIT_SHALLOW TRUE
+)
+
+FetchContent_MakeAvailable(miniroscpp)
 
 # Find required packages
 find_package(Threads REQUIRED)
+find_package(OpenCV REQUIRED COMPONENTS core imgproc highgui)
 
 # Include directories
-include_directories(${MINIROS_INCLUDE_GENERATED_DIRS})
+include_directories(${OpenCV_INCLUDE_DIRS})
+# Note: miniroscpp include directories are handled automatically by FetchContent
 
 # Create executables
 add_executable(dodo_bridge
@@ -20,7 +30,7 @@ add_executable(dodo_bridge
 )
 
 # Link libraries
-target_link_libraries(image_delay_subscriber
+target_link_libraries(dodo_bridge
     miniros::roscxx
     ${OpenCV_LIBS}
     Threads::Threads
@@ -38,13 +48,13 @@ target_link_libraries(lidar_visualizer
 )
 
 # Compiler flags
-target_compile_options(image_delay_subscriber PRIVATE
+target_compile_options(dodo_bridge PRIVATE
     -Wall
     -Wextra
     -O2
 )
 
 # Install targets
-install(TARGETS image_delay_subscriber twist_publisher lidar_visualizer
+install(TARGETS dodo_bridge
     RUNTIME DESTINATION bin
 )
