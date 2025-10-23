@@ -145,9 +145,28 @@ def parse_msg_file(file_path):
     
     return spec
 
-def generate_md5_hash(message_def):
-    """Generate a simple MD5 hash for the message definition"""
-    return hashlib.md5(message_def.encode()).hexdigest()
+def generate_md5_hash(spec):
+    """Generate MD5 hash for the message definition using ROS canonical format"""
+    # Create canonical message definition (constants + fields, no spaces around =, no blank lines)
+    lines = []
+    
+    # Add constants first
+    for const in spec.constants:
+        lines.append(f'{const.field_type} {const.name}={const.constant_value}')
+    
+    # Add fields  
+    for field in spec.fields:
+        if field.is_array:
+            if field.array_size is None:
+                field_def = f'{field.field_type}[] {field.name}'
+            else:
+                field_def = f'{field.field_type}[{field.array_size}] {field.name}'
+        else:
+            field_def = f'{field.field_type} {field.name}'
+        lines.append(field_def)
+    
+    canonical_def = '\n'.join(lines)
+    return hashlib.md5(canonical_def.encode()).hexdigest()
 
 def generate_header_guard(package, name):
     """Generate header guard macro"""
@@ -160,7 +179,7 @@ def generate_header(spec):
     header_guard = generate_header_guard(package, name)
     
     # Generate MD5 hash
-    md5_hash = generate_md5_hash(spec.raw_definition)
+    md5_hash = generate_md5_hash(spec)
     
     # Check if message has variable-length fields (affects IsFixedSize)
     has_variable_length = any(

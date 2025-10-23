@@ -20,7 +20,6 @@ struct DodobotNotify_
 {
   typedef DodobotNotify_<ContainerAllocator> Type;
 
-  // Constants for log levels
   static constexpr int32_t INFO = 0;
   static constexpr int32_t WARN = 1;
   static constexpr int32_t ERROR = 2;
@@ -117,8 +116,8 @@ struct MD5Sum< ::db_parsing::DodobotNotify_<ContainerAllocator> >
   }
 
   static const char* value(const ::db_parsing::DodobotNotify_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x4c11b2f4e44e3f5cULL;
-  static const uint64_t static_value2 = 0x9d8f7e5c8f6b3a2dULL;
+  static const uint64_t static_value1 = 0xcb361c2c00c476e4ULL;
+  static const uint64_t static_value2 = 0x6345fa12a3ad1bdeULL;
 };
 
 template<class ContainerAllocator>
@@ -137,13 +136,7 @@ struct Definition< ::db_parsing::DodobotNotify_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "int32 INFO=0\n\
-int32 WARN=1\n\
-int32 ERROR=2\n\
-\n\
-string message\n\
-int32 level\n\
-uint32 timeout\n\
+    return "int32 INFO = 0\nint32 WARN = 1\nint32 ERROR = 2\n\nstring message\nint32 level\nuint32 timeout\n\n\
 ";
   }
 
