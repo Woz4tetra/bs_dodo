@@ -155,7 +155,21 @@ void receive_depth_image(const sensor_msgs::CompressedImageConstPtr& msg)
     try
     {
         cv::Mat depth_image;
+
+        // Calculate image delay
+        auto now = std::chrono::system_clock::now();
+        auto now_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(now.time_since_epoch()).count();
         
+        // Convert ROS timestamp to nanoseconds (sec + nsec)
+        uint64_t msg_time_ns = (uint64_t)msg->header.stamp.sec * 1000000000ULL + (uint64_t)msg->header.stamp.nsec;
+        
+        // Calculate delay in milliseconds
+        double delay_ms = (now_ns - msg_time_ns) / 1000000.0;
+
+        std::cout << "[DEBUG] Depth image delay: " << std::fixed << std::setprecision(1) 
+                  << delay_ms << " ms (header: " << msg->header.stamp.sec << "." 
+                  << std::setfill('0') << std::setw(9) << msg->header.stamp.nsec << ")" << std::endl;
+
         // Check the format field to determine how to decode
         if (msg->format.find("compressedDepth") != std::string::npos)
         {
