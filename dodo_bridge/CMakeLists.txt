@@ -22,6 +22,7 @@ find_package(OpenCV REQUIRED COMPONENTS core imgproc highgui)
 
 # Include directories
 include_directories(${OpenCV_INCLUDE_DIRS})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 # Note: miniroscpp include directories are handled automatically by FetchContent
 
 # Create executables
@@ -36,6 +37,10 @@ add_executable(twist_publisher
 
 add_executable(lidar_visualizer
     src/lidar_visualizer.cpp
+)
+
+add_executable(dodobot_notify_publisher
+    src/dodobot_notify_publisher.cpp
 )
 
 # Link libraries
@@ -56,6 +61,11 @@ target_link_libraries(lidar_visualizer
     Threads::Threads
 )
 
+target_link_libraries(dodobot_notify_publisher
+    miniros::roscxx
+    Threads::Threads
+)
+
 # Compiler flags
 target_compile_options(image_delay_subscriber PRIVATE
     -Wall
@@ -64,6 +74,6 @@ target_compile_options(image_delay_subscriber PRIVATE
 )
 
 # Install targets
-install(TARGETS image_delay_subscriber twist_publisher lidar_visualizer
+install(TARGETS image_delay_subscriber twist_publisher lidar_visualizer dodobot_notify_publisher
     RUNTIME DESTINATION bin
 )
