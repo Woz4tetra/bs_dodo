@@ -1,12 +1,20 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
 project(image_delay_subscriber)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Adding miniros to the project
-add_subdirectory(thirdparty/miniroscpp)
+# Fetch miniroscpp from git
+include(FetchContent)
+FetchContent_Declare(
+    miniroscpp
+    GIT_REPOSITORY https://github.com/dkargin/miniroscpp.git
+    GIT_TAG master
+    GIT_SHALLOW TRUE
+)
+
+FetchContent_MakeAvailable(miniroscpp)
 
 # Find required packages
 find_package(Threads REQUIRED)
@@ -14,7 +22,7 @@ find_package(OpenCV REQUIRED COMPONENTS core imgproc highgui)
 
 # Include directories
 include_directories(${OpenCV_INCLUDE_DIRS})
-include_directories(${MINIROS_INCLUDE_GENERATED_DIRS})
+# Note: miniroscpp include directories are handled automatically by FetchContent
 
 # Create executables
 add_executable(image_delay_subscriber
