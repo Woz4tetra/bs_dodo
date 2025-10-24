@@ -1,3 +1,0 @@
-autobahn
---no-binary=autobahn
-roslibpy

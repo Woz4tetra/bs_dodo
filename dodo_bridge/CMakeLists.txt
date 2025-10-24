@@ -14,7 +14,15 @@ FetchContent_Declare(
     GIT_SHALLOW TRUE
 )
 
-FetchContent_MakeAvailable(miniroscpp)
+# Fetch CLI11 for command line parsing
+FetchContent_Declare(
+    cli11
+    GIT_REPOSITORY https://github.com/CLIUtils/CLI11.git
+    GIT_TAG v2.4.1  # Use stable version
+    GIT_SHALLOW TRUE
+)
+
+FetchContent_MakeAvailable(miniroscpp cli11)
 
 # Find required packages
 find_package(Threads REQUIRED)
@@ -32,17 +40,7 @@ add_executable(dodo_bridge
 # Link libraries
 target_link_libraries(dodo_bridge
     miniros::roscxx
-    ${OpenCV_LIBS}
-    Threads::Threads
-)
-
-target_link_libraries(twist_publisher
-    miniros::roscxx
-    Threads::Threads
-)
-
-target_link_libraries(lidar_visualizer
-    miniros::roscxx
+    CLI11::CLI11
     ${OpenCV_LIBS}
     Threads::Threads
 )
