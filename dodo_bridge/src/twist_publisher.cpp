@@ -120,7 +120,7 @@ int main(int argc, char** argv)
     miniros::NodeHandle nh;
 
     // Create publisher for cmd_vel topic
-    miniros::Publisher twist_pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
+    miniros::Publisher twist_pub = nh.advertise<geometry_msgs::Twist>("/dodobot/cmd_vel_teleop", 1);
 
     std::cout << "Publishing Twist messages on /cmd_vel topic every second..." << std::endl;
     std::cout << "Press Ctrl+C to stop." << std::endl;

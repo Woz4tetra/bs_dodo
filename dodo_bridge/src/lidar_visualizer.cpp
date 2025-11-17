@@ -104,7 +104,7 @@ void receive_laser_scan(const sensor_msgs::LaserScanConstPtr& msg)
         visualizer_data.latest_scan.updated = true;
         
         // Update visualization parameters
-        visualizer_data.max_range = std::min(msg->range_max, 15.0f);  // Cap at 15m
+        visualizer_data.max_range = std::min(msg->range_max, 2.0f);  // Cap at 2m
         visualizer_data.scale_factor = (visualizer_data.canvas_size * 0.4f) / visualizer_data.max_range;
         
         // Track performance

@@ -35,6 +35,10 @@ add_executable(twist_publisher
     src/twist_publisher.cpp
 )
 
+add_executable(detect_cube
+    src/detect_cube.cpp
+)
+
 add_executable(lidar_visualizer
     src/lidar_visualizer.cpp
 )
@@ -53,6 +57,12 @@ target_link_libraries(image_delay_subscriber
 target_link_libraries(twist_publisher
     miniros::roscxx
     Threads::Threads
+)
+
+target_link_libraries(detect_cube
+    miniros::roscxx
+    Threads::Threads
+    ${OpenCV_LIBS}
 )
 
 target_link_libraries(lidar_visualizer
