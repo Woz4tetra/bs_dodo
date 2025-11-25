@@ -11,6 +11,48 @@
 #include <sensor_msgs/CompressedImage.hxx>
 #include <std_msgs/Header.hxx>
 
+cv::Mat detect(cv::Mat &frame)
+{
+    cv::Mat hsv;
+    cv::cvtColor(frame, hsv, cv::COLOR_BGR2HSV);
+
+    cv::Mat mask;
+    cv::Scalar lower_blue(100, 120, 50);  
+    cv::Scalar upper_blue(140, 255, 255); 
+    cv::inRange(hsv, lower_blue, upper_blue, mask);
+
+    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(5, 5));
+    cv::morphologyEx(mask, mask, cv::MORPH_OPEN, kernel);
+    cv::morphologyEx(mask, mask, cv::MORPH_CLOSE, kernel);
+
+    std::vector<std::vector<cv::Point>> contours;
+    cv::findContours(mask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+
+    for (auto &c : contours) {
+            double area = contourArea(c);
+            if (area < 500) continue; // ignore small noise
+
+            // 5. Check shape is roughly a square
+            std::vector<cv::Point> approx;
+            approxPolyDP(c, approx, 0.02 * arcLength(c, true), true);
+
+            if (approx.size() == 4) { // likely cube face
+                cv::Rect box = boundingRect(c);
+                rectangle(frame, box, cv::Scalar(0, 255, 0), 2);
+
+                // Optional: compute center
+                cv::Point center(box.x + box.width/2, box.y + box.height/2);
+                circle(frame, center, 5, cv::Scalar(0,0,255), -1);
+
+                putText(frame, "Blue cube", {box.x, box.y-5},
+                        cv::FONT_HERSHEY_SIMPLEX, 0.7, cv::Scalar(0,255,0), 2);
+            }
+        }
+
+
+    return frame;
+}
+
 
 void receive_color_image(const sensor_msgs::CompressedImageConstPtr& msg)
 {
@@ -32,12 +74,13 @@ void receive_color_image(const sensor_msgs::CompressedImageConstPtr& msg)
 
         std::vector<uchar> img_data(msg->data.begin(), msg->data.end());
         cv::Mat image = cv::imdecode(img_data, cv::IMREAD_COLOR);
-
+        
         if (!image.empty())
         {
+            cv::Mat hsv_image = detect(image);
             std::cout<<"\nyay";
             cv::namedWindow("Display Window", cv::WINDOW_AUTOSIZE);
-            cv::imshow("Display Window", image);
+            cv::imshow("Display Window", hsv_image);
             cv::waitKey(1);
         }
     }
