@@ -68,12 +68,12 @@ int main(int argc, char** argv)
     miniros::NodeHandle nh;
     miniros::Subscriber color_sub = nh.subscribe("/camera/color/image_raw_throttled/compressed", 1, receive_color_image);
 
-    // miniros::ServiceClient client = nh.serviceClient<db_parsing::DodobotSetState>("/dodobot/set_state");
-    // db_parsing::DodobotSetState foo;
-    // foo.reporting = true;
-    // foo.active = true;
-    // bool result = client.call(foo);
-    // std::cout << "Motor enable succeeded: " << result << std::endl;
+    miniros::ServiceClient client = nh.serviceClient<db_parsing::DodobotSetState>("/dodobot/set_state");
+    db_parsing::DodobotSetState foo;
+    foo.reporting = true;
+    foo.active = true;
+    bool result = client.call(foo);
+    std::cout << "Motor enable succeeded: " << result << std::endl;
 
     miniros::Publisher tilt_pub = nh.advertise<db_parsing::DodobotTilter>("/dodobot/tilter_cmd", 10, true);
     std_msgs::Header header;
