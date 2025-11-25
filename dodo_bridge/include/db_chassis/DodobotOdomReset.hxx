@@ -39,7 +39,7 @@ template<>
 struct MD5Sum< ::db_chassis::DodobotOdomReset > {
   static const char* value()
   {
-    return "bd06bffa870ed2467070671eb85d8a00";
+    return "e3e4a3dc1c93d6b6068349e9ef1ffdd6";
   }
 
   static const char* value(const ::db_chassis::DodobotOdomReset&) { return value(); }

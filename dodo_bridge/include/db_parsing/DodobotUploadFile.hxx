@@ -39,7 +39,7 @@ template<>
 struct MD5Sum< ::db_parsing::DodobotUploadFile > {
   static const char* value()
   {
-    return "70b33e9f2ecc7d725fb8feb5b3a0b1aa";
+    return "08880347872655340b3d6b2daea3e159";
   }
 
   static const char* value(const ::db_parsing::DodobotUploadFile&) { return value(); }

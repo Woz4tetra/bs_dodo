@@ -39,7 +39,7 @@ template<>
 struct MD5Sum< ::db_parsing::DodobotListDir > {
   static const char* value()
   {
-    return "e3dd78274a21f831ffb00bf595239587";
+    return "61907ff9944eda66eaa9c2f122abc628";
   }
 
   static const char* value(const ::db_parsing::DodobotListDir&) { return value(); }

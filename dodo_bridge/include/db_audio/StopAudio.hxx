@@ -39,7 +39,7 @@ template<>
 struct MD5Sum< ::db_audio::StopAudio > {
   static const char* value()
   {
-    return "33d79a3b531eddd03799bf2998e16b4d";
+    return "43d5fc5b47a5adee86873aa9ab558aa2";
   }
 
   static const char* value(const ::db_audio::StopAudio&) { return value(); }

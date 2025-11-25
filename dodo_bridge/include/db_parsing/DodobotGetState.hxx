@@ -39,7 +39,7 @@ template<>
 struct MD5Sum< ::db_parsing::DodobotGetState > {
   static const char* value()
   {
-    return "3fb6c8e61d0956cf0ebcdd0f34543cb4";
+    return "4c01d362382e7c93b8d729b6e9ad99c8";
   }
 
   static const char* value(const ::db_parsing::DodobotGetState&) { return value(); }
