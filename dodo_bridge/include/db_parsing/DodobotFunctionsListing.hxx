@@ -119,7 +119,7 @@ struct Definition< ::db_parsing::DodobotFunctionsListing_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "DodobotFunctions[] menu\nstring selected\n\n\
+    return "DodobotFunctions[] menu\nstring selected\n\
 ";
   }
 

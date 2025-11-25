@@ -11,6 +11,7 @@
 #include <miniros/serialization.h>
 #include <miniros/traits/builtin_message_traits.h>
 #include <miniros/message_operations.h>
+#include <std_msgs/Header.hxx>
 
 namespace db_parsing
 {
@@ -44,7 +45,7 @@ struct DodobotLinear_
   (void)_alloc;
     }
 
-  typedef Header_<ContainerAllocator>  _header_type;
+  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
   _header_type header;
 
   typedef int32_t _position_type;
@@ -117,12 +118,12 @@ struct IsFixedSize< ::db_parsing::DodobotLinear_<ContainerAllocator> const>
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::DodobotLinear_<ContainerAllocator> >
-  : std::false_type
+  : std::true_type
   { };
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::DodobotLinear_<ContainerAllocator> const>
-  : std::false_type
+  : std::true_type
   { };
 
 template<class ContainerAllocator>
@@ -130,12 +131,12 @@ struct MD5Sum< ::db_parsing::DodobotLinear_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "48cd0f7c129e2f02db82f0e554e790cc";
+    return "b8c529289390b17572b4db6766c76603";
   }
 
   static const char* value(const ::db_parsing::DodobotLinear_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x48cd0f7c129e2f02ULL;
-  static const uint64_t static_value2 = 0xdb82f0e554e790ccULL;
+  static const uint64_t static_value1 = 0xb8c529289390b175ULL;
+  static const uint64_t static_value2 = 0x72b4db6766c76603ULL;
 };
 
 template<class ContainerAllocator>
@@ -154,7 +155,7 @@ struct Definition< ::db_parsing::DodobotLinear_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "Header header\nint32 position\nbool has_error\nbool is_homed\nbool is_active\n\nuint8 command_type\nint32 command_value\nint32 max_speed\nint32 acceleration\n\n\
+    return "std_msgs/Header header\nint32 position\nbool has_error\nbool is_homed\nbool is_active\nuint8 command_type\nint32 command_value\nint32 max_speed\nint32 acceleration\n\
 ";
   }
 
@@ -201,7 +202,7 @@ struct Printer< ::db_parsing::DodobotLinear_<ContainerAllocator> >
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::db_parsing::DodobotLinear_<ContainerAllocator>& v)
   {
     s << indent << "header: ";
-    miniros::message_operations::Printer<Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    miniros::message_operations::Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "position: ";
     miniros::message_operations::Printer<int32_t>::stream(s, indent + "  ", v.position);
     s << indent << "has_error: ";

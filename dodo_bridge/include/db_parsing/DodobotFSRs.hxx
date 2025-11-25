@@ -11,6 +11,7 @@
 #include <miniros/serialization.h>
 #include <miniros/traits/builtin_message_traits.h>
 #include <miniros/message_operations.h>
+#include <std_msgs/Header.hxx>
 
 namespace db_parsing
 {
@@ -32,7 +33,7 @@ struct DodobotFSRs_
   (void)_alloc;
     }
 
-  typedef Header_<ContainerAllocator>  _header_type;
+  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
   _header_type header;
 
   typedef uint16_t _left_type;
@@ -87,12 +88,12 @@ struct IsFixedSize< ::db_parsing::DodobotFSRs_<ContainerAllocator> const>
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::DodobotFSRs_<ContainerAllocator> >
-  : std::false_type
+  : std::true_type
   { };
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::DodobotFSRs_<ContainerAllocator> const>
-  : std::false_type
+  : std::true_type
   { };
 
 template<class ContainerAllocator>
@@ -100,12 +101,12 @@ struct MD5Sum< ::db_parsing::DodobotFSRs_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "e88e5ab1aa2e0abc43436a5c68f50a25";
+    return "efa75ea3c521053e0d014dffae46baa2";
   }
 
   static const char* value(const ::db_parsing::DodobotFSRs_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xe88e5ab1aa2e0abcULL;
-  static const uint64_t static_value2 = 0x43436a5c68f50a25ULL;
+  static const uint64_t static_value1 = 0xefa75ea3c521053eULL;
+  static const uint64_t static_value2 = 0x0d014dffae46baa2ULL;
 };
 
 template<class ContainerAllocator>
@@ -124,7 +125,7 @@ struct Definition< ::db_parsing::DodobotFSRs_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "Header header\nuint16 left\nuint16 right\n\n\
+    return "std_msgs/Header header\nuint16 left\nuint16 right\n\
 ";
   }
 
@@ -165,7 +166,7 @@ struct Printer< ::db_parsing::DodobotFSRs_<ContainerAllocator> >
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::db_parsing::DodobotFSRs_<ContainerAllocator>& v)
   {
     s << indent << "header: ";
-    miniros::message_operations::Printer<Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    miniros::message_operations::Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "left: ";
     miniros::message_operations::Printer<uint16_t>::stream(s, indent + "  ", v.left);
     s << indent << "right: ";

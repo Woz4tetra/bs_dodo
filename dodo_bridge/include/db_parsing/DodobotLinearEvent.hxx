@@ -119,7 +119,7 @@ struct Definition< ::db_parsing::DodobotLinearEvent_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "time stamp\nint32 event_num\n\n\
+    return "time stamp\nint32 event_num\n\
 ";
   }
 

@@ -1,0 +1,5 @@
+#!/bin/bash
+BASE_DIR=$(realpath "$(dirname $0)")
+
+python ${BASE_DIR}/minigencpp.py msg/ include/
+python ${BASE_DIR}/minigencpp.py srv/ include/

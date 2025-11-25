@@ -11,6 +11,7 @@
 #include <miniros/serialization.h>
 #include <miniros/traits/builtin_message_traits.h>
 #include <miniros/message_operations.h>
+#include <std_msgs/Header.hxx>
 
 namespace db_parsing
 {
@@ -82,12 +83,12 @@ struct IsFixedSize< ::db_parsing::Ping_<ContainerAllocator> const>
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::Ping_<ContainerAllocator> >
-  : std::false_type
+  : std::true_type
   { };
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::Ping_<ContainerAllocator> const>
-  : std::false_type
+  : std::true_type
   { };
 
 template<class ContainerAllocator>
@@ -95,12 +96,12 @@ struct MD5Sum< ::db_parsing::Ping_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "ca88d565df1a371a47bfcb7ac0bb6e5b";
+    return "2a01f95f0c02f539e7676670bc275104";
   }
 
   static const char* value(const ::db_parsing::Ping_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xca88d565df1a371aULL;
-  static const uint64_t static_value2 = 0x47bfcb7ac0bb6e5bULL;
+  static const uint64_t static_value1 = 0x2a01f95f0c02f539ULL;
+  static const uint64_t static_value2 = 0xe7676670bc275104ULL;
 };
 
 template<class ContainerAllocator>
@@ -119,7 +120,7 @@ struct Definition< ::db_parsing::Ping_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "std_msgs/Header header\nstring source\n\n\
+    return "std_msgs/Header header\nstring source\n\
 ";
   }
 

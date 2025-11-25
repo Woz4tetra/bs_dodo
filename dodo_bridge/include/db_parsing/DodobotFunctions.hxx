@@ -114,7 +114,7 @@ struct Definition< ::db_parsing::DodobotFunctions_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "string[] functions\n\n\
+    return "string[] functions\n\
 ";
   }
 

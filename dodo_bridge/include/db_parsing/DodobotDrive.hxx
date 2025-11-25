@@ -11,6 +11,7 @@
 #include <miniros/serialization.h>
 #include <miniros/traits/builtin_message_traits.h>
 #include <miniros/message_operations.h>
+#include <std_msgs/Header.hxx>
 
 namespace db_parsing
 {
@@ -44,7 +45,7 @@ struct DodobotDrive_
   (void)_alloc;
     }
 
-  typedef Header_<ContainerAllocator>  _header_type;
+  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
   _header_type header;
 
   typedef float _left_setpoint_type;
@@ -117,12 +118,12 @@ struct IsFixedSize< ::db_parsing::DodobotDrive_<ContainerAllocator> const>
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::DodobotDrive_<ContainerAllocator> >
-  : std::false_type
+  : std::true_type
   { };
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::DodobotDrive_<ContainerAllocator> const>
-  : std::false_type
+  : std::true_type
   { };
 
 template<class ContainerAllocator>
@@ -130,12 +131,12 @@ struct MD5Sum< ::db_parsing::DodobotDrive_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "30842a23f107c9440e3bce1d9fbf4d2a";
+    return "ecb7dcddec8d5223cb8eb96e7b5ff7f5";
   }
 
   static const char* value(const ::db_parsing::DodobotDrive_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x30842a23f107c944ULL;
-  static const uint64_t static_value2 = 0x0e3bce1d9fbf4d2aULL;
+  static const uint64_t static_value1 = 0xecb7dcddec8d5223ULL;
+  static const uint64_t static_value2 = 0xcb8eb96e7b5ff7f5ULL;
 };
 
 template<class ContainerAllocator>
@@ -154,7 +155,7 @@ struct Definition< ::db_parsing::DodobotDrive_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "Header header\nfloat32 left_setpoint\nfloat32 right_setpoint\n\nint64 left_enc_pos\nint64 right_enc_pos\nfloat32 left_enc_speed\nfloat32 right_enc_speed\n\nbool left_bumper\nbool right_bumper\n\n\
+    return "std_msgs/Header header\nfloat32 left_setpoint\nfloat32 right_setpoint\nint64 left_enc_pos\nint64 right_enc_pos\nfloat32 left_enc_speed\nfloat32 right_enc_speed\nbool left_bumper\nbool right_bumper\n\
 ";
   }
 
@@ -201,7 +202,7 @@ struct Printer< ::db_parsing::DodobotDrive_<ContainerAllocator> >
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::db_parsing::DodobotDrive_<ContainerAllocator>& v)
   {
     s << indent << "header: ";
-    miniros::message_operations::Printer<Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    miniros::message_operations::Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "left_setpoint: ";
     miniros::message_operations::Printer<float>::stream(s, indent + "  ", v.left_setpoint);
     s << indent << "right_setpoint: ";

@@ -11,6 +11,7 @@
 #include <miniros/serialization.h>
 #include <miniros/traits/builtin_message_traits.h>
 #include <miniros/message_operations.h>
+#include <std_msgs/Header.hxx>
 
 namespace db_parsing
 {
@@ -32,7 +33,7 @@ struct DodobotGripper_
   (void)_alloc;
     }
 
-  typedef Header_<ContainerAllocator>  _header_type;
+  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
   _header_type header;
 
   typedef int32_t _position_type;
@@ -87,12 +88,12 @@ struct IsFixedSize< ::db_parsing::DodobotGripper_<ContainerAllocator> const>
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::DodobotGripper_<ContainerAllocator> >
-  : std::false_type
+  : std::true_type
   { };
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::DodobotGripper_<ContainerAllocator> const>
-  : std::false_type
+  : std::true_type
   { };
 
 template<class ContainerAllocator>
@@ -100,12 +101,12 @@ struct MD5Sum< ::db_parsing::DodobotGripper_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "fe05448bef319b5e0216b33676b79e69";
+    return "eed9de238fe078d82a5cd3a3b29053af";
   }
 
   static const char* value(const ::db_parsing::DodobotGripper_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xfe05448bef319b5eULL;
-  static const uint64_t static_value2 = 0x0216b33676b79e69ULL;
+  static const uint64_t static_value1 = 0xeed9de238fe078d8ULL;
+  static const uint64_t static_value2 = 0x2a5cd3a3b29053afULL;
 };
 
 template<class ContainerAllocator>
@@ -124,7 +125,7 @@ struct Definition< ::db_parsing::DodobotGripper_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "Header header\nint32 position\nint32 force_threshold\n\n\
+    return "std_msgs/Header header\nint32 position\nint32 force_threshold\n\
 ";
   }
 
@@ -165,7 +166,7 @@ struct Printer< ::db_parsing::DodobotGripper_<ContainerAllocator> >
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::db_parsing::DodobotGripper_<ContainerAllocator>& v)
   {
     s << indent << "header: ";
-    miniros::message_operations::Printer<Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    miniros::message_operations::Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "position: ";
     miniros::message_operations::Printer<int32_t>::stream(s, indent + "  ", v.position);
     s << indent << "force_threshold: ";

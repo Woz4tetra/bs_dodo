@@ -124,7 +124,7 @@ struct Definition< ::db_chassis::LinearPosition_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "float32 position\nfloat32 max_speed\nfloat32 acceleration\n\n\
+    return "float32 position\nfloat32 max_speed\nfloat32 acceleration\n\
 ";
   }
 

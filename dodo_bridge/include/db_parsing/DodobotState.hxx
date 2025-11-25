@@ -11,6 +11,7 @@
 #include <miniros/serialization.h>
 #include <miniros/traits/builtin_message_traits.h>
 #include <miniros/message_operations.h>
+#include <std_msgs/Header.hxx>
 
 namespace db_parsing
 {
@@ -38,7 +39,7 @@ struct DodobotState_
   (void)_alloc;
     }
 
-  typedef Header_<ContainerAllocator>  _header_type;
+  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
   _header_type header;
 
   typedef uint8_t _battery_ok_type;
@@ -102,12 +103,12 @@ struct IsFixedSize< ::db_parsing::DodobotState_<ContainerAllocator> const>
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::DodobotState_<ContainerAllocator> >
-  : std::false_type
+  : std::true_type
   { };
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::DodobotState_<ContainerAllocator> const>
-  : std::false_type
+  : std::true_type
   { };
 
 template<class ContainerAllocator>
@@ -115,12 +116,12 @@ struct MD5Sum< ::db_parsing::DodobotState_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "8f1ba2512049f0c4cfc0d584937a9ef2";
+    return "61fbaafd66fbfd2040d7f84ff8ab80ba";
   }
 
   static const char* value(const ::db_parsing::DodobotState_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x8f1ba2512049f0c4ULL;
-  static const uint64_t static_value2 = 0xcfc0d584937a9ef2ULL;
+  static const uint64_t static_value1 = 0x61fbaafd66fbfd20ULL;
+  static const uint64_t static_value2 = 0x40d7f84ff8ab80baULL;
 };
 
 template<class ContainerAllocator>
@@ -139,7 +140,7 @@ struct Definition< ::db_parsing::DodobotState_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "Header header\n\nbool battery_ok\nbool motors_active\nfloat32 loop_rate\nbool is_ready\nstring robot_name\n\n\
+    return "std_msgs/Header header\nbool battery_ok\nbool motors_active\nfloat32 loop_rate\nbool is_ready\nstring robot_name\n\
 ";
   }
 
@@ -183,7 +184,7 @@ struct Printer< ::db_parsing::DodobotState_<ContainerAllocator> >
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::db_parsing::DodobotState_<ContainerAllocator>& v)
   {
     s << indent << "header: ";
-    miniros::message_operations::Printer<Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    miniros::message_operations::Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "battery_ok: ";
     miniros::message_operations::Printer<uint8_t>::stream(s, indent + "  ", v.battery_ok);
     s << indent << "motors_active: ";

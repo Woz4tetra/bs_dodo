@@ -136,7 +136,7 @@ struct Definition< ::db_parsing::DodobotNotify_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "int32 INFO = 0\nint32 WARN = 1\nint32 ERROR = 2\n\nstring message\nint32 level\nuint32 timeout\n\n\
+    return "int32 INFO = 0\nint32 WARN = 1\nint32 ERROR = 2\nstring message\nint32 level\nuint32 timeout\n\
 ";
   }
 

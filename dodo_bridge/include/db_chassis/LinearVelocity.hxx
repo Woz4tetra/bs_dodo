@@ -119,7 +119,7 @@ struct Definition< ::db_chassis::LinearVelocity_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "float32 velocity\nfloat32 acceleration\n\n\
+    return "float32 velocity\nfloat32 acceleration\n\
 ";
   }
 

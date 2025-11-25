@@ -11,6 +11,7 @@
 #include <miniros/serialization.h>
 #include <miniros/traits/builtin_message_traits.h>
 #include <miniros/message_operations.h>
+#include <std_msgs/Header.hxx>
 
 namespace db_parsing
 {
@@ -32,7 +33,7 @@ struct DodobotParallelGripper_
   (void)_alloc;
     }
 
-  typedef Header_<ContainerAllocator>  _header_type;
+  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
   _header_type header;
 
   typedef float _distance_type;
@@ -87,12 +88,12 @@ struct IsFixedSize< ::db_parsing::DodobotParallelGripper_<ContainerAllocator> co
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::DodobotParallelGripper_<ContainerAllocator> >
-  : std::false_type
+  : std::true_type
   { };
 
 template <class ContainerAllocator>
 struct HasHeader< ::db_parsing::DodobotParallelGripper_<ContainerAllocator> const>
-  : std::false_type
+  : std::true_type
   { };
 
 template<class ContainerAllocator>
@@ -100,12 +101,12 @@ struct MD5Sum< ::db_parsing::DodobotParallelGripper_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "8c79d6d85928709ddbfd230c488c875e";
+    return "31e6d713e74b2cf088e9dc8950c2e10f";
   }
 
   static const char* value(const ::db_parsing::DodobotParallelGripper_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x8c79d6d85928709dULL;
-  static const uint64_t static_value2 = 0xdbfd230c488c875eULL;
+  static const uint64_t static_value1 = 0x31e6d713e74b2cf0ULL;
+  static const uint64_t static_value2 = 0x88e9dc8950c2e10fULL;
 };
 
 template<class ContainerAllocator>
@@ -124,7 +125,7 @@ struct Definition< ::db_parsing::DodobotParallelGripper_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "Header header\nfloat32 distance\nfloat32 force_threshold\n\n\
+    return "std_msgs/Header header\nfloat32 distance\nfloat32 force_threshold\n\
 ";
   }
 
@@ -165,7 +166,7 @@ struct Printer< ::db_parsing::DodobotParallelGripper_<ContainerAllocator> >
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::db_parsing::DodobotParallelGripper_<ContainerAllocator>& v)
   {
     s << indent << "header: ";
-    miniros::message_operations::Printer<Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    miniros::message_operations::Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "distance: ";
     miniros::message_operations::Printer<float>::stream(s, indent + "  ", v.distance);
     s << indent << "force_threshold: ";

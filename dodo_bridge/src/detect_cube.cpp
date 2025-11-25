@@ -70,8 +70,8 @@ int main(int argc, char** argv)
 
     miniros::ServiceClient client = nh.serviceClient<db_parsing::DodobotSetState>("/dodobot/set_state");
     db_parsing::DodobotSetState foo;
-    foo.reporting = true;
-    foo.active = true;
+    foo.request.reporting = true;
+    foo.request.active = true;
     bool result = client.call(foo);
     std::cout << "Motor enable succeeded: " << result << std::endl;
 
@@ -79,7 +79,7 @@ int main(int argc, char** argv)
     std_msgs::Header header;
     db_parsing::DodobotTilter bar;
     bar.position = 0;
-    bar.command = 0;
+    bar.command = 1;
     bar.header = header;
     tilt_pub.publish(bar);
     std::cout << "published tilt message: " << bar << std::endl ;
