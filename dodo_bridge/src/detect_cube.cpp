@@ -6,6 +6,8 @@
 #include <chrono>
 #include <iomanip>
 #include <opencv2/opencv.hpp>
+#include <db_parsing/DodobotSetState.hxx>
+#include <db_parsing/DodobotTilter.hxx>
 #include <sensor_msgs/CompressedImage.hxx>
 
 
@@ -64,6 +66,21 @@ int main(int argc, char** argv)
     
     miniros::NodeHandle nh;
     miniros::Subscriber color_sub = nh.subscribe("/camera/color/image_raw_throttled/compressed", 1, receive_color_image);
+
+    miniros::ServiceClient client = nh.serviceClient<db_parsing::DodobotSetState>("/dodobot/set_state");
+    db_parsing::DodobotSetState foo;
+    foo.reporting = true;
+    foo.active = true;
+
+    bool result = client.call(foo)
+
+    std::cout << "Motor enable succeded: " << result << std::endl;
+
+    db_parsing::DodobotTilter bar;
+    bar.position = 0;
+    bar.command = 0;
+
+
 
     miniros::Rate rate(240); // Hz
     
