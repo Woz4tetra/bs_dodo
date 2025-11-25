@@ -9,6 +9,7 @@
 #include <db_parsing/DodobotSetState.hxx>
 #include <db_parsing/DodobotTilter.hxx>
 #include <sensor_msgs/CompressedImage.hxx>
+#include <std_msgs/Header.hxx>
 
 
 void receive_color_image(const sensor_msgs::CompressedImageConstPtr& msg)
@@ -67,23 +68,23 @@ int main(int argc, char** argv)
     miniros::NodeHandle nh;
     miniros::Subscriber color_sub = nh.subscribe("/camera/color/image_raw_throttled/compressed", 1, receive_color_image);
 
-    miniros::ServiceClient client = nh.serviceClient<db_parsing::DodobotSetState>("/dodobot/set_state");
-    db_parsing::DodobotSetState foo;
-    foo.reporting = true;
-    foo.active = true;
+    // miniros::ServiceClient client = nh.serviceClient<db_parsing::DodobotSetState>("/dodobot/set_state");
+    // db_parsing::DodobotSetState foo;
+    // foo.reporting = true;
+    // foo.active = true;
+    // bool result = client.call(foo);
+    // std::cout << "Motor enable succeeded: " << result << std::endl;
 
-    bool result = client.call(foo)
-
-    std::cout << "Motor enable succeded: " << result << std::endl;
-
+    miniros::Publisher tilt_pub = nh.advertise<db_parsing::DodobotTilter>("/dodobot/tilter_cmd", 10, true);
+    std_msgs::Header header;
     db_parsing::DodobotTilter bar;
     bar.position = 0;
     bar.command = 0;
-
-
+    bar.header = header;
+    tilt_pub.publish(bar);
+    std::cout << "published tilt message: " << bar << std::endl ;
 
     miniros::Rate rate(240); // Hz
-    
     while (miniros::ok())
     {
         miniros::spinOnce();
