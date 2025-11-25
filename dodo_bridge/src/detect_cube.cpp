@@ -99,7 +99,7 @@ int main(int argc, char** argv)
     std::cout << "Using ROS Master URI: " << ROS_MASTER_URI << std::endl;
     setenv("ROS_MASTER_URI", ROS_MASTER_URI.c_str(), 1);
     
-    const std::string ROS_IP = "192.168.50.212";
+    const std::string ROS_IP = "192.168.50.63";
     std::cout << "Using ROS IP: " << ROS_IP << std::endl;
     setenv("ROS_IP", ROS_IP.c_str(), 1);
 
@@ -132,6 +132,7 @@ int main(int argc, char** argv)
     {
         miniros::spinOnce();
         rate.sleep();
+        tilt_pub.publish(bar);
     }
 
 
